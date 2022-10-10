@@ -1,20 +1,14 @@
+import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
+import { Main } from '../components/Main';
+
 const Home = () => {
     return (
-        <>
-            <header>
-                <nav className='bg-gray-500 text-4xl p-5 text-center'>
-                    Navigation
-                </nav>
-            </header>
-            <main>
-                <section className='text-4xl p-5 text-center'>
-                    Main Section
-                </section>
-            </main>
-            <footer className='bg-gray-500 text-4xl p-5 text-center'>
-                Footer
-            </footer>
-        </>
+        <div className='flex flex-col min-h-screen items-center'>
+            <Header />
+            <Main />
+            <Footer />
+        </div>
     );
 };
 
