@@ -1,12 +1,15 @@
+import uniqid from 'uniqid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const paths = [
     {
+        key: uniqid(),
         text: 'Main',
         path: '/',
     },
     {
+        key: uniqid(),
         text: 'About',
         path: '/about',
     },
@@ -18,8 +21,8 @@ export const Header = () => {
     return (
         <header className='flex bg-gray-500 justify-center w-full'>
             <nav className='flex text-4xl gap-4'>
-                {paths.map(({ text, path }) => (
-                    <Link key={Date.now()} href={path}>
+                {paths.map(({ key, text, path }) => (
+                    <Link key={key} href={path}>
                         <a
                             className={
                                 router.pathname === path ? 'font-bold' : ''
