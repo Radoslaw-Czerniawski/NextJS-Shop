@@ -1,4 +1,3 @@
-import uniqid from 'uniqid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -14,6 +13,10 @@ const paths = [
     {
         text: 'Products',
         path: '/products',
+    },
+    {
+        text: 'Products-CSR',
+        path: '/products-csr',
     },
 ];
 
