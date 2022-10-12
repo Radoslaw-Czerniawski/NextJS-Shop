@@ -1,37 +1,45 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 const paths = [
     {
-        text: 'Main',
-        path: '/',
-    },
-    {
         text: 'About',
-        path: '/about',
+        name: 'about',
+        path: '/about/',
     },
     {
         text: 'Products',
-        path: '/products',
+        name: 'products',
+        path: '/products/',
     },
     {
         text: 'Products-CSR',
-        path: '/products-csr',
+        name: 'products-csr',
+        path: '/products-csr/?page=1',
     },
 ];
 
 export const Header = () => {
     const router = useRouter();
+    const routerPath = useMemo(
+        () => router.asPath.split('/').filter((el) => el !== ''),
+        [router.pathname]
+    );
 
     return (
         <header className='flex bg-gray-500 justify-center w-full'>
             <nav className='flex text-4xl gap-4'>
-                {paths.map(({ text, path }) => (
+                <Link key={'main'} href='/'>
+                    <a className={router.asPath === '/' ? 'font-bold' : ''}>
+                        Main
+                    </a>
+                </Link>
+                {paths.map(({ text, path, name }) => (
                     <Link key={text} href={path}>
                         <a
                             className={
-                                router.pathname === path ? 'font-bold' : ''
+                                routerPath.includes(name) ? 'font-bold' : ''
                             }
                         >
                             {text}

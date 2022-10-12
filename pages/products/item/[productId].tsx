@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { ProductDetails } from '../../components/Product';
-import { StoreApiResponse } from '../products';
+import { ProductDetails } from '../../../components/Product';
+import { StoreApiResponse } from '../[page]';
 import Link from 'next/link';
 
 const ProductIdPage = ({
@@ -28,23 +28,20 @@ const ProductIdPage = ({
 export default ProductIdPage;
 
 export const getStaticPaths = async () => {
-    const req = await fetch('https://fakestoreapi.com/products/');
+    const req = await fetch(
+        'https://naszsklep-api.vercel.app/api/products?take=250'
+    );
     const data: StoreApiResponse[] = await req.json();
 
+    const paths = data.map(({ id }) => ({
+        params: {
+            productId: `${id}`,
+        },
+    }));
+
     return {
-        paths: data.map(({ id }) => ({
-            params: {
-                productId: `${id}`,
-            },
-        })),
-        // paths: [
-        //     {
-        //         params: {
-        //             productId: '1',
-        //         },
-        //     },
-        // ],
-        fallback: 'blocking',
+        paths,
+        fallback: false,
     };
 };
 
@@ -59,7 +56,7 @@ export const getStaticProps = async ({
     }
 
     const req = await fetch(
-        `https://fakestoreapi.com/products/${params.productId}`
+        `https://naszsklep-api.vercel.app/api/products/${params.productId}`
     );
     const data: StoreApiResponse = await req.json();
 

@@ -19,7 +19,7 @@ export const Pagination = ({
         () =>
             Array.from({ length: 10 }, (_, i) => ({
                 text: i + 1,
-                href: `${href}?page=${i + 1}`,
+                href: `${href}${i + 1}`,
             })),
         [href]
     );
@@ -28,7 +28,7 @@ export const Pagination = ({
         <div className='fixed bottom-0 w-full mx-auto select-none'>
             <div className=' max-w-4xl mx-auto border border-gray-200 bg-white px-4 py-3 sm:px-6'>
                 <div className='flex flex-1 justify-center sm:hidden'>
-                    <Link href={`${href}?page=${pageNumber - 1}`}>
+                    <Link href={`${href}${pageNumber - 1}`}>
                         <a
                             onClick={(e) => {
                                 pageNumber <= 1 && e.preventDefault();
@@ -42,7 +42,7 @@ export const Pagination = ({
                             Previous
                         </a>
                     </Link>
-                    <Link href={`${href}?page=${pageNumber + 1}`}>
+                    <Link href={`${href}${pageNumber + 1}`}>
                         <a
                             onClick={(e) => {
                                 pageNumber >= pages.length &&
@@ -81,7 +81,7 @@ export const Pagination = ({
                             className='w-full isolate inline-flex -space-x-px rounded-md shadow-sm'
                             aria-label='Pagination'
                         >
-                            <Link href={`${href}?page=${pageNumber - 1}`}>
+                            <Link href={`${href}${pageNumber - 1}`}>
                                 <div
                                     className={`${
                                         pageNumber <= 1
@@ -113,7 +113,7 @@ export const Pagination = ({
                                     </a>
                                 </Link>
                             ))}
-                            <Link href={`${href}?page=${pageNumber + 1}`}>
+                            <Link href={`${href}${pageNumber + 1}`}>
                                 <div
                                     className={`${
                                         pageNumber > pages.length - 1

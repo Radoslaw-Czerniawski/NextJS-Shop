@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ProductListItem } from '../components/Product';
 import { useQuery } from 'react-query';
-import { StoreApiResponse } from './products';
+import { StoreApiResponse } from './products/[page]';
 import { Pagination } from '../components/Pagination';
 import { useRouter } from 'next/router';
 
@@ -48,7 +48,7 @@ const ProductsCRSPage = () => {
                     </li>
                 ))}
             </ul>
-            <Pagination pageNumber={pageNumber} href={'/products-csr'} />
+            <Pagination pageNumber={pageNumber} href={'/products-csr?page='} />
         </>
     );
 };

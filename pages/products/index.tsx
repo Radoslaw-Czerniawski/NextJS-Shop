@@ -1,11 +1,20 @@
-import { InferGetStaticPropsType } from 'next';
-import React from 'react';
-import { Pagination } from '../components/Pagination';
-import { ProductListItem } from '../components/Product';
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import { Pagination } from '../../components/Pagination';
+import { ProductListItem } from '../../components/Product';
 
 const ProductsPage = ({
     data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const page = useRouter().query.page as string | undefined;
+    const pageNumber = useMemo(
+        () =>
+            page !== undefined && !isNaN(parseInt(page)) ? parseInt(page) : 1,
+        [page]
+    );
+    const offsetNumber = useMemo(() => pageNumber * 25 - 25, [pageNumber]);
+
     return (
         <>
             <ul className='flex flex-col items-center gap-2'>
@@ -25,6 +34,7 @@ const ProductsPage = ({
                     </li>
                 ))}
             </ul>
+            <Pagination href='/products/' pageNumber={pageNumber} />
         </>
     );
 };
@@ -32,7 +42,9 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticProps = async () => {
-    const req = await fetch('https://fakestoreapi.com/products/');
+    const req = await fetch(
+        `https://naszsklep-api.vercel.app/api/products?take=25`
+    );
     const data: StoreApiResponse[] = await req.json();
 
     return {
