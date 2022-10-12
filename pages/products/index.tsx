@@ -1,4 +1,4 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { Pagination } from '../../components/Pagination';
@@ -30,11 +30,11 @@ const ProductsPage = ({
                                 thumbnailAlt: title,
                                 thumbnailUrl: image,
                             }}
-                        />
+                        ></ProductListItem>
                     </li>
                 ))}
             </ul>
-            <Pagination href='/products/' pageNumber={pageNumber} />
+            <Pagination href='/products/' resultsAmount={4000} />
         </>
     );
 };

@@ -48,7 +48,7 @@ const ProductsCRSPage = () => {
                     </li>
                 ))}
             </ul>
-            <Pagination pageNumber={pageNumber} href={'/products-csr?page='} />
+            <Pagination resultsAmount={4000} href={'/products-csr?page='} />
         </>
     );
 };

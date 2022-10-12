@@ -1,6 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const activeClass =
     'relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20';
@@ -9,19 +10,45 @@ const passiveClass =
     'relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex';
 
 export const Pagination = ({
-    pageNumber,
     href,
+    resultsAmount,
 }: {
-    pageNumber: number;
     href: string;
+    resultsAmount: number;
 }) => {
+    const page = useRouter().query.page as string | undefined;
+
+    const pageNumber = useMemo(
+        () =>
+            page !== undefined && !isNaN(parseInt(page)) ? parseInt(page) : 1,
+        [page]
+    );
+
+    const firstAndLastPage = useMemo(() => {
+        const firstPage =
+            pageNumber % 10
+                ? Math.floor(pageNumber / 10) * 10 + 1
+                : pageNumber - 9;
+        const lastPage =
+            pageNumber % 10 ? Math.ceil(pageNumber / 10) * 10 : pageNumber;
+
+        return [firstPage, lastPage];
+    }, [page]);
+
     const pages = useMemo(
         () =>
-            Array.from({ length: 10 }, (_, i) => ({
-                text: i + 1,
-                href: `${href}${i + 1}`,
+            Array.from({ length: 8 }, (_, i) => ({
+                text:
+                    pageNumber % 10
+                        ? Math.floor(pageNumber / 10) * 10 + i + 2
+                        : Math.floor((pageNumber - 1) / 10) * 10 + i + 2,
+                href: `${href}${
+                    pageNumber % 10
+                        ? Math.floor(pageNumber / 10) * 10 + i + 2
+                        : Math.floor((pageNumber - 1) / 10) * 10 + i + 2
+                }`,
             })),
-        [href]
+        [firstAndLastPage]
     );
 
     return (
@@ -70,9 +97,7 @@ export const Pagination = ({
                                 {pageNumber * 25}
                             </span>{' '}
                             of{' '}
-                            <span className='font-medium'>
-                                {pages.length * 25}
-                            </span>{' '}
+                            <span className='font-medium'>{resultsAmount}</span>{' '}
                             results
                         </p>
                     </div>
@@ -99,6 +124,18 @@ export const Pagination = ({
                                     />
                                 </div>
                             </Link>
+                            <Link href={`${href}${firstAndLastPage[0]}`}>
+                                <a
+                                    aria-current='page'
+                                    className={
+                                        pageNumber === firstAndLastPage[0]
+                                            ? activeClass
+                                            : passiveClass
+                                    }
+                                >
+                                    {firstAndLastPage[0]}
+                                </a>
+                            </Link>
                             {pages.map(({ text, href }) => (
                                 <Link key={text} href={href}>
                                     <a
@@ -113,15 +150,27 @@ export const Pagination = ({
                                     </a>
                                 </Link>
                             ))}
+                            <Link href={`${href}${firstAndLastPage[1]}`}>
+                                <a
+                                    aria-current='page'
+                                    className={
+                                        pageNumber === firstAndLastPage[1]
+                                            ? activeClass
+                                            : passiveClass
+                                    }
+                                >
+                                    {firstAndLastPage[1]}
+                                </a>
+                            </Link>
                             <Link href={`${href}${pageNumber + 1}`}>
                                 <div
                                     className={`${
-                                        pageNumber > pages.length - 1
+                                        pageNumber >= resultsAmount / 25
                                             ? 'cursor-default'
                                             : 'cursor-pointer'
                                     } relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
                                     onClick={(e) => {
-                                        pageNumber > pages.length - 1 &&
+                                        pageNumber >= resultsAmount / 25 &&
                                             e.preventDefault();
                                     }}
                                 >

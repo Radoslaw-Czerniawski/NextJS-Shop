@@ -33,7 +33,7 @@ const ProductsPage = ({
                     </li>
                 ))}
             </ul>
-            <Pagination href='/products/' pageNumber={pageNumber} />
+            <Pagination resultsAmount={4000} href='/products/' />
         </>
     );
 };
@@ -51,7 +51,7 @@ export const getStaticPaths = async () => {
                 page: `${page}`,
             },
         })),
-        fallback: false,
+        fallback: 'blocking',
     };
 };
 
