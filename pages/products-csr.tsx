@@ -1,34 +1,55 @@
-import { InferGetStaticPropsType } from 'next';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ProductListItem } from '../components/Product';
 import { useQuery } from 'react-query';
 import { StoreApiResponse } from './products';
+import { Pagination } from '../components/Pagination';
+import { useRouter } from 'next/router';
+
+const queryFetch = async (
+    offsetNumber: number
+): Promise<StoreApiResponse[]> => {
+    const req = await fetch(
+        `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offsetNumber}`
+    );
+    const res = req.json();
+
+    return res;
+};
 
 const ProductsCRSPage = () => {
-    const { data } = useQuery('products', async () => {
-        const req = await fetch('https://fakestoreapi.com/products/');
-        const data: StoreApiResponse[] = await req.json();
-        return data;
-    });
+    const page = useRouter().query.page as string | undefined;
+    const pageNumber = useMemo(
+        () =>
+            page !== undefined && !isNaN(parseInt(page)) ? parseInt(page) : 1,
+        [page]
+    );
+    const offsetNumber = useMemo(() => pageNumber * 25 - 25, [pageNumber]);
+
+    const { data } = useQuery(['products-csr', offsetNumber], () =>
+        queryFetch(offsetNumber)
+    );
 
     return (
-        <ul className='flex flex-col items-center gap-2'>
-            {data?.map(({ id, title, image, description, rating }) => (
-                <li
-                    key={id}
-                    className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl h-96 pb-5'
-                >
-                    <ProductListItem
-                        data={{
-                            id,
-                            title,
-                            thumbnailAlt: title,
-                            thumbnailUrl: image,
-                        }}
-                    />
-                </li>
-            ))}
-        </ul>
+        <>
+            <ul className='flex flex-col items-center gap-2'>
+                {data?.map(({ id, title, image }) => (
+                    <li
+                        key={id}
+                        className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl h-96 pb-5'
+                    >
+                        <ProductListItem
+                            data={{
+                                id,
+                                title,
+                                thumbnailAlt: title,
+                                thumbnailUrl: image,
+                            }}
+                        />
+                    </li>
+                ))}
+            </ul>
+            <Pagination pageNumber={pageNumber} href={'/products-csr'} />
+        </>
     );
 };
 

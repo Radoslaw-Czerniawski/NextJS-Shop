@@ -8,13 +8,12 @@ const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <div className='grid grid-rows-[auto_1fr_auto] min-h-screen'>
-            <QueryClientProvider client={client}>
+        <QueryClientProvider client={client}>
+            <div className='grid grid-rows-[auto_1fr_62px] min-h-screen'>
                 <Header />
                 <Component {...pageProps} />
-                <Footer />
-            </QueryClientProvider>
-        </div>
+            </div>
+        </QueryClientProvider>
     );
 }
 
