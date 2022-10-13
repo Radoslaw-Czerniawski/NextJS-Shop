@@ -41,7 +41,7 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticPaths = async () => {
-    const pages = Array.from({ length: 10 }, (_, i) => ({
+    const pages = Array.from({ length: 80 }, (_, i) => ({
         page: i + 1,
     }));
 

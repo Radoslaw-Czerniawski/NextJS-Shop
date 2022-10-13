@@ -30,7 +30,7 @@ const ProductsPage = ({
                                 thumbnailAlt: title,
                                 thumbnailUrl: image,
                             }}
-                        ></ProductListItem>
+                        />
                     </li>
                 ))}
             </ul>
