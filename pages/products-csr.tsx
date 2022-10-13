@@ -35,7 +35,7 @@ const ProductsCRSPage = () => {
                 {data?.map(({ id, title, image }) => (
                     <li
                         key={id}
-                        className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl h-96 pb-5'
+                        className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl pb-5'
                     >
                         <ProductListItem
                             data={{

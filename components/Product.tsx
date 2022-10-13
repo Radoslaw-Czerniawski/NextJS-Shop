@@ -27,15 +27,15 @@ export const ProductListItem = ({
     <>
         <h2 className='p-4 text-2xl font-bold text-center'>{title}</h2>
         <Link href={`/products/item/${id}`}>
-            <a className='w-full h-full'>
-                <div className='relative w-full h-full'>
-                    <Image
-                        layout='fill'
-                        objectFit='contain'
-                        src={thumbnailUrl}
-                        alt={thumbnailAlt}
-                    />
-                </div>
+            <a>
+                <Image
+                    layout='responsive'
+                    width={21}
+                    height={9}
+                    objectFit='contain'
+                    src={thumbnailUrl}
+                    alt={thumbnailAlt}
+                />
             </a>
         </Link>
     </>
