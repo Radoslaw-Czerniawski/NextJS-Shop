@@ -7,13 +7,6 @@ import { ProductListItem } from '../../components/Product';
 const ProductsPage = ({
     data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const page = useRouter().query.page as string | undefined;
-    const pageNumber = useMemo(
-        () =>
-            page !== undefined && !isNaN(parseInt(page)) ? parseInt(page) : 1,
-        [page]
-    );
-
     return (
         <>
             <ul className='flex flex-col items-center gap-2'>
@@ -72,6 +65,7 @@ export const getStaticProps = async ({
         props: {
             data,
         },
+        revalidate: 200,
     };
 };
 

@@ -27,7 +27,7 @@ export const ProductListItem = ({
     <>
         <h2 className='p-4 text-2xl font-bold text-center'>{title}</h2>
         <Link href={`/products/item/${id}`}>
-            <a>
+            <a className='bg-white'>
                 <Image
                     layout='responsive'
                     width={21}
@@ -61,18 +61,20 @@ export const ProductDetails = ({
     return (
         <>
             <div className='flex flex-col items-center h-full max-w-2xl mx-auto'>
-                <h2 className='p-4 text-3xl mt-6 font-bold text-center'>
+                <h2 className='text-3xl mt-10 font-bold text-center'>
                     {title}
                 </h2>
-                <div className='relative mt-8 flex-grow w-full h-[600px]'>
+                <div className='relative bg-white mt-10 h-auto w-full'>
                     <Image
-                        layout='fill'
+                        layout='responsive'
                         objectFit='contain'
+                        width={1}
+                        height={1}
                         src={thumbnailUrl}
                         alt={thumbnailAlt}
                     />
                 </div>
-                <p className='flex items-center p-4 text-center flex-grow'>
+                <p className='p-6 flex items-center flex-grow text-xl text-center '>
                     {description}
                 </p>
                 <span className='text-cyan-700 text-3xl flex-grow font-extrabold'>

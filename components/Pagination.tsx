@@ -30,26 +30,32 @@ export const Pagination = ({
                 ? Math.floor(pageNumber / 10) * 10 + 1
                 : pageNumber - 9;
         const lastPage =
-            pageNumber % 10 ? Math.ceil(pageNumber / 10) * 10 : pageNumber;
+            Math.ceil(resultsAmount / 25) - firstPage >= 10
+                ? Math.ceil(pageNumber / 10) * 10
+                : Math.ceil(resultsAmount / 25);
+
+        console.log(firstPage, lastPage);
 
         return [firstPage, lastPage];
     }, [page]);
 
-    const pages = useMemo(
-        () =>
-            Array.from({ length: 8 }, (_, i) => ({
-                text:
-                    pageNumber % 10
-                        ? Math.floor(pageNumber / 10) * 10 + i + 2
-                        : Math.floor((pageNumber - 1) / 10) * 10 + i + 2,
-                href: `${href}${
-                    pageNumber % 10
-                        ? Math.floor(pageNumber / 10) * 10 + i + 2
-                        : Math.floor((pageNumber - 1) / 10) * 10 + i + 2
-                }`,
-            })),
-        [firstAndLastPage]
-    );
+    const pages = useMemo(() => {
+        const length = firstAndLastPage[1] - firstAndLastPage[0] + 1;
+
+        console.log(length);
+
+        return Array.from({ length }, (_, i) => ({
+            text:
+                pageNumber % 10
+                    ? Math.floor(pageNumber / 10) * 10 + i + 1
+                    : Math.floor((pageNumber - 1) / 10) * 10 + i + 1,
+            href: `${href}${
+                pageNumber % 10
+                    ? Math.floor(pageNumber / 10) * 10 + i + 1
+                    : Math.floor((pageNumber - 1) / 10) * 10 + i + 1
+            }`,
+        }));
+    }, [firstAndLastPage]);
 
     return (
         <div className='fixed bottom-0 w-full mx-auto select-none'>
@@ -94,7 +100,9 @@ export const Pagination = ({
                             </span>{' '}
                             to{' '}
                             <span className='font-medium'>
-                                {pageNumber * 25}
+                                {pageNumber === Math.ceil(resultsAmount / 25)
+                                    ? resultsAmount
+                                    : pageNumber * 25}
                             </span>{' '}
                             of{' '}
                             <span className='font-medium'>{resultsAmount}</span>{' '}
@@ -124,18 +132,6 @@ export const Pagination = ({
                                     />
                                 </div>
                             </Link>
-                            <Link href={`${href}${firstAndLastPage[0]}`}>
-                                <a
-                                    aria-current='page'
-                                    className={
-                                        pageNumber === firstAndLastPage[0]
-                                            ? activeClass
-                                            : passiveClass
-                                    }
-                                >
-                                    {firstAndLastPage[0]}
-                                </a>
-                            </Link>
                             {pages.map(({ text, href }) => (
                                 <Link key={text} href={href}>
                                     <a
@@ -150,18 +146,6 @@ export const Pagination = ({
                                     </a>
                                 </Link>
                             ))}
-                            <Link href={`${href}${firstAndLastPage[1]}`}>
-                                <a
-                                    aria-current='page'
-                                    className={
-                                        pageNumber === firstAndLastPage[1]
-                                            ? activeClass
-                                            : passiveClass
-                                    }
-                                >
-                                    {firstAndLastPage[1]}
-                                </a>
-                            </Link>
                             <Link href={`${href}${pageNumber + 1}`}>
                                 <div
                                     className={`${

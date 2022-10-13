@@ -29,7 +29,7 @@ export const Header = () => {
 
     return (
         <header className='flex bg-gray-500 justify-center w-full'>
-            <nav className='flex text-4xl gap-4'>
+            <nav className='flex  gap-4 text-xl sm:text-4xl'>
                 <Link key={'main'} href='/'>
                     <a className={router.asPath === '/' ? 'font-bold' : ''}>
                         Main
