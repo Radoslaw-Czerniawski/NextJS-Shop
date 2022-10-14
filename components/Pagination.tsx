@@ -34,16 +34,11 @@ export const Pagination = ({
                 ? Math.ceil(pageNumber / 10) * 10
                 : Math.ceil(resultsAmount / 25);
 
-        console.log(firstPage, lastPage);
-
         return [firstPage, lastPage];
     }, [page]);
 
     const pages = useMemo(() => {
         const length = firstAndLastPage[1] - firstAndLastPage[0] + 1;
-
-        console.log(length);
-
         return Array.from({ length }, (_, i) => ({
             text:
                 pageNumber % 10

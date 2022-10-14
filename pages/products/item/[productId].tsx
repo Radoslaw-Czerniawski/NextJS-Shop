@@ -1,8 +1,7 @@
 import React from 'react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
-import { StoreApiResponse } from '../[page]';
-import Link from 'next/link';
+import { InferGetStaticPathsType, StoreApiResponse } from '../[page]';
 
 const ProductIdPage = ({
     data,
@@ -33,21 +32,19 @@ export const getStaticPaths = async () => {
     );
     const data: StoreApiResponse[] = await req.json();
 
-    const paths = data.map(({ id }) => ({
-        params: {
-            productId: `${id}`,
-        },
-    }));
-
     return {
-        paths,
+        paths: data.map(({ id }) => ({
+            params: {
+                productId: `${id}`,
+            },
+        })),
         fallback: 'blocking',
     };
 };
 
 export const getStaticProps = async ({
     params,
-}: GetStaticPropsContext<{ productId: string }>) => {
+}: GetStaticPropsContext<InferGetStaticPathsType<typeof getStaticPaths>>) => {
     if (!params?.productId) {
         return {
             props: {},
@@ -56,7 +53,7 @@ export const getStaticProps = async ({
     }
 
     const req = await fetch(
-        `https://naszsklep-api.vercel.app/api/products/${params.productId}`
+        `https://naszsklep-api.vercel.app/api/products/${params?.productId}`
     );
     const data: StoreApiResponse = await req.json();
 
@@ -66,9 +63,3 @@ export const getStaticProps = async ({
         },
     };
 };
-
-export type InferGetStaticPaths<T> = T extends () => Promise<{
-    paths: Array<{ params: infer R }>;
-}>
-    ? { params?: R }
-    : never;

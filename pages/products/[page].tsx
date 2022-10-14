@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
 
@@ -34,7 +33,7 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticPaths = async () => {
-    const pages = Array.from({ length: 80 }, (_, i) => ({
+    const pages = Array.from({ length: 40 }, (_, i) => ({
         page: i + 1,
     }));
 
@@ -50,7 +49,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({
     params,
-}: GetStaticPropsContext<{ page: string | undefined }>) => {
+}: GetStaticPropsContext<InferGetStaticPathsType<typeof getStaticPaths>>) => {
     const offset =
         params?.page !== undefined && !isNaN(parseInt(params.page))
             ? parseInt(params.page) * 25 - 25
@@ -81,3 +80,9 @@ export interface StoreApiResponse {
         count: number;
     };
 }
+
+export type InferGetStaticPathsType<T> = T extends () => Promise<{
+    paths: Array<{ params: infer R }>;
+}>
+    ? R
+    : never;
