@@ -6,7 +6,7 @@ const paths = [
     {
         text: 'Products',
         name: 'products',
-        path: '/products/',
+        path: '/products/1',
     },
     {
         text: 'Products-CSR',
