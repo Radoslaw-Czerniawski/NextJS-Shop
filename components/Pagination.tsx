@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 const activeClass =
@@ -35,7 +35,7 @@ export const Pagination = ({
                 : Math.ceil(resultsAmount / 25);
 
         return [firstPage, lastPage];
-    }, [page]);
+    }, [pageNumber, resultsAmount]);
 
     const pages = useMemo(() => {
         const length = firstAndLastPage[1] - firstAndLastPage[0] + 1;
@@ -50,7 +50,7 @@ export const Pagination = ({
                     : Math.floor((pageNumber - 1) / 10) * 10 + i + 1
             }`,
         }));
-    }, [firstAndLastPage]);
+    }, [firstAndLastPage, href]);
 
     return (
         <div className='fixed bottom-0 w-full mx-auto select-none'>

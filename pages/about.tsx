@@ -7,7 +7,9 @@ interface AboutProps {}
 const AboutPage = (props: AboutProps) => {
     return (
         <>
-            <Main>About Page</Main>;
+            <Main>
+                <span className='font-bold text-2xl'>About Page</span>
+            </Main>
             <Footer />
         </>
     );

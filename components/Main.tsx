@@ -5,7 +5,9 @@ interface MainProps {
 }
 
 export const Main = ({ children }: MainProps) => (
-    <main className='flex flex-col gap-10 flex-grow max-w-2xl mx-auto p-6'>
-        {children}
-    </main>
+    <>
+        <main className='flex flex-col justify-center gap-10 flex-grow max-w-2xl mx-auto p-6'>
+            {children}
+        </main>
+    </>
 );

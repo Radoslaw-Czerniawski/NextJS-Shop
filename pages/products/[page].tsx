@@ -8,11 +8,11 @@ const ProductsPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <>
-            <ul className='flex flex-col items-center gap-2'>
+            <ul className='flex flex-col items-center gap-2 pt-4'>
                 {data.map(({ id, title, image, description, rating }) => (
                     <li
                         key={id}
-                        className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl pb-5'
+                        className=' bg-white flex flex-col w-full flex-grow drop-shadow border-1 max-w-2xl mb-2'
                     >
                         <ProductListItem
                             data={{
@@ -33,7 +33,7 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticPaths = async () => {
-    const pages = Array.from({ length: 40 }, (_, i) => ({
+    const pages = Array.from({ length: 50 }, (_, i) => ({
         page: i + 1,
     }));
 

@@ -1,27 +1,18 @@
 import { InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
 
 const ProductsPage = ({
     data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const page = useRouter().query.page as string | undefined;
-    const pageNumber = useMemo(
-        () =>
-            page !== undefined && !isNaN(parseInt(page)) ? parseInt(page) : 1,
-        [page]
-    );
-    const offsetNumber = useMemo(() => pageNumber * 25 - 25, [pageNumber]);
-
     return (
         <>
-            <ul className='flex flex-col items-center gap-2'>
+            <ul className='flex flex-col items-center gap-2 pt-4'>
                 {data.map(({ id, title, image, description, rating }) => (
                     <li
                         key={id}
-                        className='flex flex-col w-full flex-grow shadow-xl border-2 max-w-2xl pb-5'
+                        className=' bg-white flex flex-col w-full flex-grow drop-shadow border-1 max-w-2xl mb-2'
                     >
                         <ProductListItem
                             data={{

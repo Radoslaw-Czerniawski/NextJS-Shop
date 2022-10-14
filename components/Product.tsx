@@ -25,9 +25,11 @@ export const ProductListItem = ({
     data: { id, title, thumbnailUrl, thumbnailAlt },
 }: ProductListItemProps) => (
     <>
-        <h2 className='p-4 text-2xl font-bold text-center'>{title}</h2>
+        <h2 className='bg-slate-200 rounded-b-lg p-4 text-2xl font-bold shadow z-10 text-center'>
+            {title}
+        </h2>
         <Link href={`/products/item/${id}`}>
-            <a className='bg-white'>
+            <a className='bg-wh pb-4 pt-4'>
                 <Image
                     layout='responsive'
                     width={21}
