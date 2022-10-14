@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
 import { InferGetStaticPathsType, StoreApiResponse } from '../[page]';
+import { fetchData } from '../../../utilities/fetchData';
 
 const ProductIdPage = ({
     data,
@@ -27,10 +28,11 @@ const ProductIdPage = ({
 export default ProductIdPage;
 
 export const getStaticPaths = async () => {
-    const req = await fetch(
+    const data = await fetchData<StoreApiResponse[]>(
         'https://naszsklep-api.vercel.app/api/products?take=250'
     );
-    const data: StoreApiResponse[] = await req.json();
+
+    if (data instanceof Error) throw data;
 
     return {
         paths: data.map(({ id }) => ({
@@ -52,10 +54,11 @@ export const getStaticProps = async ({
         };
     }
 
-    const req = await fetch(
+    const data = await fetchData<StoreApiResponse>(
         `https://naszsklep-api.vercel.app/api/products/${params?.productId}`
     );
-    const data: StoreApiResponse = await req.json();
+
+    if (data instanceof Error) throw data;
 
     return {
         props: {

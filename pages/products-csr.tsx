@@ -4,17 +4,7 @@ import { useQuery } from 'react-query';
 import { StoreApiResponse } from './products/[page]';
 import { Pagination } from '../components/Pagination';
 import { useRouter } from 'next/router';
-
-const queryFetch = async (
-    offsetNumber: number
-): Promise<StoreApiResponse[]> => {
-    const req = await fetch(
-        `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offsetNumber}`
-    );
-    const res = req.json();
-
-    return res;
-};
+import { fetchData } from '../utilities/fetchData';
 
 const ProductsCRSPage = () => {
     const page = useRouter().query.page as string | undefined;
@@ -25,9 +15,17 @@ const ProductsCRSPage = () => {
     );
     const offsetNumber = useMemo(() => pageNumber * 25 - 25, [pageNumber]);
 
-    const { data } = useQuery(['products-csr', offsetNumber], () =>
-        queryFetch(offsetNumber)
+    const { data } = useQuery<StoreApiResponse[] | Error>(
+        ['products-csr', offsetNumber],
+        () =>
+            fetchData<StoreApiResponse[]>(
+                `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offsetNumber}`
+            )
     );
+
+    if (data instanceof Error || data === undefined) {
+        return <span>Something went wrong...</span>;
+    }
 
     return (
         <>

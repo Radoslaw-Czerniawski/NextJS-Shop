@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
+import { fetchData } from '../../utilities/fetchData';
 
 const ProductsPage = ({
     data,
@@ -55,10 +56,11 @@ export const getStaticProps = async ({
             ? parseInt(params.page) * 25 - 25
             : 25;
 
-    const req = await fetch(
+    const data = await fetchData<StoreApiResponse[]>(
         `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offset}`
     );
-    const data: StoreApiResponse[] = await req.json();
+
+    if (data instanceof Error) throw data;
 
     return {
         props: {

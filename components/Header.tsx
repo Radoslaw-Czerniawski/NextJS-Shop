@@ -18,7 +18,7 @@ const paths = [
 const passiveClassName =
     'hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700';
 
-const activeClassName = passiveClassName + ' font-bold';
+const activeClassName = `${passiveClassName} font-bold`;
 
 export const Header = () => {
     const router = useRouter();
@@ -57,25 +57,6 @@ export const Header = () => {
                     ))}
                 </ul>
             </nav>
-
-            {/* <nav className='flex  gap-4 text-xl sm:text-4xl'>
-                <Link key={'main'} href='/'>
-                    <a className={router.asPath === '/' ? 'font-bold' : ''}>
-                        Home
-                    </a>
-                </Link>
-                {paths.map(({ text, path, name }) => (
-                    <Link key={text} href={path}>
-                        <a
-                            className={
-                                routerPath.includes(name) ? 'font-bold' : ''
-                            }
-                        >
-                            {text}
-                        </a>
-                    </Link>
-                ))}
-            </nav> */}
         </header>
     );
 };
