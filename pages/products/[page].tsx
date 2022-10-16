@@ -3,10 +3,18 @@ import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
 import { fetchData } from '../../utilities/fetchData';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 const ProductsPage = ({
     data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const session = useSession();
+
+    if (session.status === 'unauthenticated') {
+        Router.replace('/auth/login');
+    }
+
     return (
         <>
             <ul className='flex flex-col items-center gap-2 pt-4'>
