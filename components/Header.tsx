@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 
 const paths = [
     {
@@ -26,10 +27,11 @@ export const Header = () => {
         () => router.asPath.split('/').filter((el) => el !== ''),
         [router.asPath]
     );
+    const { status } = useSession();
 
     return (
         <header className='flex justify-center w-full shadow-sm'>
-            <nav className='flex justify-center border-b bg-white border-gray-200  py-2.5 w-full dark:bg-gray-800'>
+            <nav className='relative flex justify-center border-b bg-white border-gray-200  py-2.5 w-full dark:bg-gray-800'>
                 <ul className='flex gap-2 flex-row sm:text-2xl sm:gap-8'>
                     <Link key={'main'} href='/'>
                         <a
@@ -56,6 +58,21 @@ export const Header = () => {
                         </Link>
                     ))}
                 </ul>
+                {status === 'unauthenticated' ? (
+                    <Link href='/auth/login'>
+                        <a className='absolute right-4 top-1/2 -translate-y-1/2'>
+                            Login
+                        </a>
+                    </Link>
+                ) : (
+                    <a
+                        href='#'
+                        className='absolute right-4 top-1/2 -translate-y-1/2'
+                        onClick={() => signOut()}
+                    >
+                        Logout
+                    </a>
+                )}
             </nav>
         </header>
     );

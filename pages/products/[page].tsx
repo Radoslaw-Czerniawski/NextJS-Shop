@@ -5,6 +5,7 @@ import { ProductListItem } from '../../components/Product';
 import { fetchData } from '../../utilities/fetchData';
 import { useSession } from 'next-auth/react';
 import Router from 'next/router';
+import { StoreApiResponse } from '../../Types/StoreApi';
 
 const ProductsPage = ({
     data,
@@ -77,19 +78,6 @@ export const getStaticProps = async ({
         revalidate: 86400,
     };
 };
-
-export interface StoreApiResponse {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: {
-        rate: number;
-        count: number;
-    };
-}
 
 export type InferGetStaticPathsType<T> = T extends () => Promise<{
     paths: Array<{ params: infer R }>;

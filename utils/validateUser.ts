@@ -1,4 +1,4 @@
-import { User } from '../Types/User.entity';
+import { User } from '../entities/User.entity';
 import { fetchData } from '../utilities/fetchData';
 import { getServerPath } from './config';
 

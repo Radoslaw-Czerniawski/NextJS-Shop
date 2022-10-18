@@ -7,7 +7,7 @@ interface MainProps {
 export const Main = ({ children }: MainProps) => {
     return (
         <>
-            <main className='grid grid-rows-[auto_65px]'>{children}</main>
+            <main>{children}</main>
         </>
     );
 };

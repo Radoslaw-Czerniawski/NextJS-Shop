@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const Footer = () => {
     return (
-        <footer className=' bg-white dark:bg-gray-800 border-t rounded-none flex justify-between p-6 pr-8'>
+        <footer className=' bg-white dark:bg-gray-800 border-t rounded-none flex justify-between p-4 pr-8'>
             <div className='flex items-center  gap-2'>
                 <span className='flex sm:text-sm text-xs text-gray-500 dark:text-gray-400'>
                     © 2022 Site by Radosław Czerniawski

@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { ProductListItem } from '../components/Product';
 import { useQuery } from 'react-query';
-import { StoreApiResponse } from './products/[page]';
 import { Pagination } from '../components/Pagination';
 import { useRouter } from 'next/router';
 import { fetchData } from '../utilities/fetchData';
 import { useSession } from 'next-auth/react';
 import Router from 'next/router';
+import { StoreApiResponse } from '../Types/StoreApi';
 
 const ProductsCRSPage = () => {
     const session = useSession();
