@@ -1,8 +1,9 @@
 import React from 'react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
-import { InferGetStaticPathsType, StoreApiResponse } from '../[page]';
+import { InferGetStaticPathsType } from '../[page]';
 import { fetchData } from '../../../utilities/fetchData';
+import { StoreApiResponse } from '../../../Types/StoreApi';
 
 const ProductIdPage = ({
     data,

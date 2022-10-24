@@ -1,12 +1,20 @@
 import React, { useMemo } from 'react';
 import { ProductListItem } from '../components/Product';
 import { useQuery } from 'react-query';
-import { StoreApiResponse } from './products/[page]';
 import { Pagination } from '../components/Pagination';
 import { useRouter } from 'next/router';
 import { fetchData } from '../utilities/fetchData';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
+import { StoreApiResponse } from '../Types/StoreApi';
 
 const ProductsCRSPage = () => {
+    const session = useSession();
+
+    if (session.status === 'unauthenticated') {
+        Router.replace('/auth/login');
+    }
+
     const page = useRouter().query.page as string | undefined;
     const pageNumber = useMemo(
         () =>
@@ -15,7 +23,7 @@ const ProductsCRSPage = () => {
     );
     const offsetNumber = useMemo(() => pageNumber * 25 - 25, [pageNumber]);
 
-    const { data } = useQuery<StoreApiResponse[] | Error>(
+    const { data, isError } = useQuery<StoreApiResponse[] | Error>(
         ['products-csr', offsetNumber],
         () =>
             fetchData<StoreApiResponse[]>(
@@ -23,7 +31,7 @@ const ProductsCRSPage = () => {
             )
     );
 
-    if (data instanceof Error || data === undefined) {
+    if (data instanceof Error || isError) {
         return <span>Something went wrong...</span>;
     }
 

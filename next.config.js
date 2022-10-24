@@ -9,7 +9,7 @@ const nextConfig = {
             },
         ];
     },
-    reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
     trailingSlash: true,
     images: {

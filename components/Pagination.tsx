@@ -4,10 +4,10 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 const activeClass =
-    'relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20';
+    'relative dark:bg-gray-800 dark:text-white z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20';
 
 const passiveClass =
-    'relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex';
+    'relative dark:bg-gray-800 dark:text-white hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex';
 
 export const Pagination = ({
     href,
@@ -54,7 +54,7 @@ export const Pagination = ({
 
     return (
         <div className='fixed bottom-0 w-full mx-auto select-none'>
-            <div className=' max-w-4xl mx-auto border border-gray-200 bg-white px-4 py-3 sm:px-6'>
+            <div className=' max-w-4xl mx-auto border rounded-t-xl dark:bg-gray-800 dark:text-white border-gray-200 bg-white px-4 py-3 sm:px-6'>
                 <div className='flex flex-1 justify-center sm:hidden'>
                     <Link href={`${href}${pageNumber - 1}`}>
                         <a
@@ -65,7 +65,7 @@ export const Pagination = ({
                                 pageNumber <= 1
                                     ? 'cursor-default'
                                     : 'cursor-pointer'
-                            } relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50`}
+                            } relative  inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50`}
                         >
                             Previous
                         </a>
@@ -88,25 +88,27 @@ export const Pagination = ({
                 </div>
                 <div className='hidden justify-center sm:flex sm:flex-1 sm:items-center sm:justify-between'>
                     <div>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-sm text-gray-700 dark:bg-gray-800 dark:text-white'>
                             Showing{' '}
-                            <span className='font-medium'>
+                            <span className='font-medium dark:bg-gray-800 dark:text-white'>
                                 {pageNumber * 25 - 24}
                             </span>{' '}
                             to{' '}
-                            <span className='font-medium'>
+                            <span className='font-medium dark:bg-gray-800 dark:text-white'>
                                 {pageNumber === Math.ceil(resultsAmount / 25)
                                     ? resultsAmount
                                     : pageNumber * 25}
                             </span>{' '}
                             of{' '}
-                            <span className='font-medium'>{resultsAmount}</span>{' '}
+                            <span className='font-medium dark:bg-gray-800 dark:text-white'>
+                                {resultsAmount}
+                            </span>{' '}
                             results
                         </p>
                     </div>
                     <div>
                         <nav
-                            className='w-full isolate inline-flex -space-x-px rounded-md shadow-sm'
+                            className='w-full dark:bg-gray-800 dark:text-white isolate inline-flex -space-x-px rounded-md shadow-sm'
                             aria-label='Pagination'
                         >
                             <Link href={`${href}${pageNumber - 1}`}>
@@ -115,7 +117,7 @@ export const Pagination = ({
                                         pageNumber <= 1
                                             ? 'cursor-default'
                                             : 'cursor-pointer'
-                                    } relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
+                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
                                     onClick={(e) => {
                                         pageNumber <= 1 && e.preventDefault();
                                     }}
@@ -147,7 +149,7 @@ export const Pagination = ({
                                         pageNumber >= resultsAmount / 25
                                             ? 'cursor-default'
                                             : 'cursor-pointer'
-                                    } relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
+                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
                                     onClick={(e) => {
                                         pageNumber >= resultsAmount / 25 &&
                                             e.preventDefault();

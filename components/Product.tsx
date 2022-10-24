@@ -3,20 +3,6 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 
-interface ProductDetails {
-    id: number;
-    title: string;
-    description: string;
-    thumbnailUrl: string;
-    thumbnailAlt: string;
-    rating: number;
-}
-
-type ProductListItem = Pick<
-    ProductDetails,
-    'id' | 'title' | 'thumbnailAlt' | 'thumbnailUrl'
->;
-
 interface ProductListItemProps {
     data: ProductListItem;
 }
@@ -83,7 +69,7 @@ export const ProductDetails = ({
                     {rating}
                 </span>
             </div>
-            <div className='flex justify-center border items-center text-2xl '>
+            <div className='fixed bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
                 <Link href={`../${Math.ceil(productId / 25)}`}>
                     <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
                         Go Back
