@@ -17,7 +17,7 @@ const paths = [
 ];
 
 const passiveClassName =
-    'header__link hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700';
+    'header__link hover:bg-transparent border-0 hover:text-primary-700 p-0  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700';
 
 const activeClassName = `${passiveClassName} font-bold`;
 
@@ -32,7 +32,7 @@ export const Header = () => {
     return (
         <header className='flex justify-center w-full shadow-sm'>
             <nav className='relative flex justify-center border-b bg-white border-gray-200  py-2.5 w-full dark:bg-gray-800'>
-                <ul className='flex gap-2 flex-row sm:text-2xl sm:gap-8'>
+                <ul className='flex gap-2 flex-row text-s sm:text-2xl sm:gap-8'>
                     <Link key={'main'} href='/'>
                         <a
                             className={
@@ -60,14 +60,14 @@ export const Header = () => {
                 </ul>
                 {status === 'unauthenticated' ? (
                     <Link href='/auth/login'>
-                        <a className='header__link absolute right-4 top-1/2 -translate-y-1/2'>
+                        <a className='header__link dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white text-xs sm:text-lg absolute right-4 top-[53%] -translate-y-1/2 sm:top-1/2 sm:-translate-y-1/2'>
                             Login
                         </a>
                     </Link>
                 ) : (
                     <a
                         href='#'
-                        className='header__link absolute right-4 top-1/2 -translate-y-1/2'
+                        className='header__link dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white text-xs sm:text-lg absolute right-4 top-[53%] -translate-y-1/2 sm:top-1/2 sm:-translate-y-1/2'
                         onClick={() => signOut()}
                     >
                         Logout

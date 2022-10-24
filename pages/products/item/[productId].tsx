@@ -4,6 +4,7 @@ import { ProductDetails } from '../../../components/Product';
 import { InferGetStaticPathsType } from '../[page]';
 import { fetchData } from '../../../utilities/fetchData';
 import { StoreApiResponse } from '../../../Types/StoreApi';
+import { serialize } from 'next-mdx-remote/serialize';
 
 const ProductIdPage = ({
     data,
@@ -21,6 +22,7 @@ const ProductIdPage = ({
                 thumbnailAlt: data.title,
                 thumbnailUrl: data.image,
                 title: data.title,
+                longDescription: data.longDescription,
             }}
         />
     );
@@ -63,7 +65,10 @@ export const getStaticProps = async ({
 
     return {
         props: {
-            data,
+            data: {
+                ...data,
+                longDescription: await serialize(data.longDescription),
+            },
         },
         revalidate: 86400,
     };
