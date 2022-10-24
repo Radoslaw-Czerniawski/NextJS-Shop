@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .header__link {
+        /*
+            background for element is half black and half blue, horizontal size is 200% so the blue part is invisible, then we just move it to the left by 100%, we clip background to only cover text
+        */
+        background-image: linear-gradient(
+            to right,
+            #54b3d6,
+            #54b3d6 50%,
+            #000 50%
+        );
+        background-size: 200% 100%;
+        background-position: -100%;
+        background-clip: text;
+        color: transparent;
+        transition: all 200ms ease-in-out;
+    }
+
+    .header__link::before {
+        content: '';
+        background: #54b3d6;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+    }
+
+    .header__link:hover {
+        background-position: 0;
+    }
+}

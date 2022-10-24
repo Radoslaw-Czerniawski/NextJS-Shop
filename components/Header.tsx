@@ -17,7 +17,7 @@ const paths = [
 ];
 
 const passiveClassName =
-    'hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700';
+    'header__link hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700';
 
 const activeClassName = `${passiveClassName} font-bold`;
 
@@ -60,14 +60,14 @@ export const Header = () => {
                 </ul>
                 {status === 'unauthenticated' ? (
                     <Link href='/auth/login'>
-                        <a className='absolute right-4 top-1/2 -translate-y-1/2'>
+                        <a className='header__link absolute right-4 top-1/2 -translate-y-1/2'>
                             Login
                         </a>
                     </Link>
                 ) : (
                     <a
                         href='#'
-                        className='absolute right-4 top-1/2 -translate-y-1/2'
+                        className='header__link absolute right-4 top-1/2 -translate-y-1/2'
                         onClick={() => signOut()}
                     >
                         Logout
