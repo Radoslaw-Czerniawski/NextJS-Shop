@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useMemo } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
+import { NextSeo } from 'next-seo';
+import { getBasePath } from '../utils/config';
+import { CustomReactMarkdown } from './CustomReactMarkdown';
 
 interface ProductListItemProps {
     data: ProductListItem;
@@ -34,43 +36,59 @@ interface ProductDetailsProps {
 }
 
 export const ProductDetails = ({
-    data: { title, thumbnailUrl, thumbnailAlt, description, rating },
+    data: {
+        id,
+        title,
+        thumbnailUrl,
+        thumbnailAlt,
+        description,
+        longDescription,
+        rating,
+    },
 }: ProductDetailsProps) => {
-    const id = useRouter().query.productId as string | undefined;
-    const productId = useMemo(
-        () => (id !== undefined && !isNaN(parseInt(id)) ? parseInt(id) : null),
-        [id]
-    );
-
-    if (productId === null) {
-        return <span>Something went wrong...</span>;
-    }
-
     return (
         <>
-            <div className='flex flex-col items-center h-full max-w-2xl mx-auto'>
-                <h2 className='text-3xl mt-10 font-bold text-center'>
+            <NextSeo
+                title={title}
+                description={description}
+                canonical={`${getBasePath()}/products/item/${id}/`}
+                openGraph={{
+                    url: `https://naszsklep-api.vercel.app/api/products/${id}`,
+                    title,
+                    description,
+                    images: [
+                        {
+                            url: thumbnailUrl,
+                            alt: thumbnailUrl,
+                            type: 'image/jpeg',
+                        },
+                    ],
+                    siteName: 'Next Shop',
+                }}
+            />
+            <div className='flex text-center flex-col items-center h-full max-w-2xl mx-auto'>
+                <h1 className='text-3xl mt-10 font-bold text-center'>
                     {title}
-                </h2>
+                </h1>
                 <div className='relative bg-white mt-10 h-auto w-full'>
                     <Image
                         layout='responsive'
                         objectFit='contain'
-                        width={1}
-                        height={1}
+                        width={16}
+                        height={9}
                         src={thumbnailUrl}
                         alt={thumbnailAlt}
                     />
                 </div>
-                <p className='p-6 flex items-center flex-grow text-xl text-center '>
-                    {description}
-                </p>
-                <span className='text-cyan-700 text-3xl flex-grow font-extrabold'>
+                <article className='flex flex-col bg-slate-100 text-s text-left p-3 rounded-lg my-6 prose lg:prose-lg'>
+                    <CustomReactMarkdown>{longDescription}</CustomReactMarkdown>
+                </article>
+                <span className='text-cyan-700 pb-2 text-3xl flex-grow font-extrabold'>
                     {rating}
                 </span>
             </div>
-            <div className='fixed bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
-                <Link href={`../${Math.ceil(productId / 25)}`}>
+            <div className='fixed bg-white bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
+                <Link href={`../${Math.ceil(id / 25)}`}>
                     <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
                         Go Back
                     </button>
