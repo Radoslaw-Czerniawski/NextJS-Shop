@@ -3,7 +3,7 @@ import { ProductListItem } from '../components/Product';
 import { useQuery } from 'react-query';
 import { Pagination } from '../components/Pagination';
 import { useRouter } from 'next/router';
-import { fetchData } from '../utilities/fetchData';
+import { fetchData } from '../utils/fetchData';
 import { useSession } from 'next-auth/react';
 import Router from 'next/router';
 import { StoreApiResponse } from '../Types/StoreApi';

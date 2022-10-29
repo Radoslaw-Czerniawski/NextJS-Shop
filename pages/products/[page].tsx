@@ -2,7 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
-import { fetchData } from '../../utilities/fetchData';
+import { fetchData } from '../../utils/fetchData';
 import { useSession } from 'next-auth/react';
 import Router from 'next/router';
 import { StoreApiResponse } from '../../Types/StoreApi';

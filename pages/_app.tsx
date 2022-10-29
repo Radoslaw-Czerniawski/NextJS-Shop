@@ -10,6 +10,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../next-seo.config';
 import '../styles/globals.css';
 import { Layout } from '../components/Layout';
+import { CartContextProvider } from '../context/CartContext';
 
 const client = new QueryClient();
 
@@ -17,11 +18,13 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
     return (
         <SessionProvider session={pageProps.session}>
             <QueryClientProvider client={client}>
-                <Layout>
-                    <DefaultSeo {...SEO} />
-                    {/* we set default Head tags */}
-                    <Component {...pageProps} />
-                </Layout>
+                <CartContextProvider>
+                    <Layout>
+                        <DefaultSeo {...SEO} />
+                        {/* we set default Head tags */}
+                        <Component {...pageProps} />
+                    </Layout>
+                </CartContextProvider>
             </QueryClientProvider>
         </SessionProvider>
     );

@@ -4,6 +4,8 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import { getBasePath } from '../utils/config';
 import { CustomReactMarkdown } from './CustomReactMarkdown';
+import { AddToCartButton } from './AddToCartButton';
+import Router from 'next/router';
 
 interface ProductListItemProps {
     data: ProductListItem;
@@ -87,12 +89,16 @@ export const ProductDetails = ({
                     {rating}
                 </span>
             </div>
-            <div className='fixed bg-white bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
-                <Link href={`../${Math.ceil(id / 25)}`}>
-                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                        Go Back
-                    </button>
-                </Link>
+            <div className='fixed gap-10 bg-white bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
+                <AddToCartButton
+                    item={{ id, title, thumbnailAlt, thumbnailUrl }}
+                />
+                <button
+                    onClick={() => Router.back()}
+                    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                >
+                    Go Back
+                </button>
             </div>
         </>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
 import { InferGetStaticPathsType } from '../[page]';
-import { fetchData } from '../../../utilities/fetchData';
+import { fetchData } from '../../../utils/fetchData';
 import { StoreApiResponse } from '../../../Types/StoreApi';
 import { serialize } from 'next-mdx-remote/serialize';
 
