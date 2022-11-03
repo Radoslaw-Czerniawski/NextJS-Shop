@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useState, useMemo, useContext } from 'react';
+import {
+    createContext,
+    ReactNode,
+    useState,
+    useMemo,
+    useContext,
+    useEffect,
+} from 'react';
 
 const CartContext = createContext<CartState | null>(null);
 const ApiContext = createContext<Api | null>(null);
@@ -8,6 +15,26 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         items: [],
         amountTotal: 0,
     });
+
+    useEffect(() => {
+        const cartItemsLocalStorage = localStorage.getItem('SHOPPING_CART');
+
+        if (!cartItemsLocalStorage) {
+            return;
+        }
+
+        try {
+            const newCart = JSON.parse(cartItemsLocalStorage);
+            setCartItems(newCart);
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('SHOPPING_CART', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     const api = useMemo(
         () => ({

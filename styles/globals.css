@@ -36,4 +36,32 @@
     .header__link:hover {
         background-position: 0;
     }
+
+    .line-1 {
+        border-right: 2px solid rgba(255, 255, 255, 0.75);
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .anim-typewriter {
+        animation: typewriter 3s steps(44) 300ms 1 normal both,
+        blinkTextCursor 1ms steps(44) infinite normal;
+    }
+    @keyframes typewriter {
+        from {
+            width: 0;
+        }
+        to {
+            width: 100%;
+        }
+    }
+    @keyframes blinkTextCursor {
+        from {
+            border-right-color: rgba(0, 0, 0, 0.75);
+        }
+        to {
+            border-right-color: rgba(0, 0, 0, 0.75);
+        }
+    }
 }

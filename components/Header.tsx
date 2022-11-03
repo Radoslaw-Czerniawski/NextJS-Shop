@@ -78,7 +78,7 @@ export const Header = () => {
                 </ul>
 
                 <div className='flex gap-2 items-center'>
-                    <span className='text-xs sm:text-sm'>
+                    <span className='text-xs sm:text-sm dark:text-gray-400'>
                         {cartItemsAmount === 0 ? '' : cartItemsAmount}
                     </span>
                     <div className='transition-all duration-100 cursor-pointer hover:scale-90 w-6 h-6'>
@@ -89,6 +89,7 @@ export const Header = () => {
                                 viewBox='0 0 24 24'
                                 strokeWidth={1.5}
                                 stroke='currentColor'
+                                className='dark:text-gray-400'
                             >
                                 <path
                                     strokeLinecap='round'

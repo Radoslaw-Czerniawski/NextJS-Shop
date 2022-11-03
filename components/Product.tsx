@@ -9,10 +9,12 @@ import Router from 'next/router';
 
 interface ProductListItemProps {
     data: ProductListItem;
+    isButton?: boolean;
 }
 
 export const ProductListItem = ({
     data: { id, title, thumbnailUrl, thumbnailAlt },
+    isButton,
 }: ProductListItemProps) => (
     <>
         <h2 className='bg-slate-200 rounded-b-lg p-4 text-2xl font-bold shadow z-10 text-center'>
@@ -30,6 +32,19 @@ export const ProductListItem = ({
                 />
             </a>
         </Link>
+        <div className='flex justify-start'>
+            {isButton && (
+                <AddToCartButton
+                    item={{
+                        id,
+                        title,
+                        thumbnailAlt,
+                        thumbnailUrl,
+                    }}
+                    classes='mb-2 origin-bottom-left rounded-none rounded-tr-lg mb-0'
+                />
+            )}
+        </div>
     </>
 );
 

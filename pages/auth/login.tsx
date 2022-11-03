@@ -39,7 +39,7 @@ const Login = ({}: Props) => {
 
                     setTimeout(() => {
                         setError(null);
-                    }, 3000);
+                    }, 5000);
                     return;
                 }
             } catch {}
@@ -71,9 +71,10 @@ const Login = ({}: Props) => {
                             E-mail
                         </label>
                         <input
-                            className={`${
-                                isError && 'border-red-500 focus:outline-none'
-                            } shadow dark:text-white placeholder:dark:text-white appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 leading-tight  focus:outline-slate-500 dark:bg-gray-600`}
+                            className={`transition-all ease-linear duration-500 shadow dark:text-white placeholder:dark:text-white appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 leading-tight  focus:outline-slate-500 dark:bg-gray-600 ${
+                                isError &&
+                                'border-red-500 focus:outline-none duration-100'
+                            }`}
                             id='email'
                             name='usernames'
                             type='email'
@@ -93,9 +94,10 @@ const Login = ({}: Props) => {
                             Password
                         </label>
                         <input
-                            className={`${
-                                isError && 'border-red-500 focus:outline-none'
-                            }  shadow dark:text-white placeholder:dark:text-white dark:bg-gray-600 appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 mb-3 leading-tight focus:outline-slate-500 placeholder:flex`}
+                            className={`transition-all ease-linear duration-500 shadow dark:text-white placeholder:dark:text-white dark:bg-gray-600 appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 mb-3 leading-tight focus:outline-slate-500 placeholder:flex ${
+                                isError &&
+                                'border-red-500 focus:outline-none duration-100'
+                            }`}
                             id='password'
                             type='password'
                             name='password'

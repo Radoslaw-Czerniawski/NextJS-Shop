@@ -6,6 +6,6 @@ type CartState = {
 };
 
 type Api = {
-    addItem: (item: ProductListItem) => void;
-    removeItem: (id: number) => void;
+    readonly addItem: (item: ProductListItem) => void;
+    readonly removeItem: (id: number) => void;
 };

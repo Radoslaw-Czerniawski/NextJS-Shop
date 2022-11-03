@@ -31,6 +31,7 @@ const ProductsPage = ({
                                 thumbnailAlt: title,
                                 thumbnailUrl: image,
                             }}
+                            isButton={true}
                         />
                     </li>
                 ))}
