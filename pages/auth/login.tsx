@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Footer } from '../../components/Footer';
 import { signIn } from 'next-auth/react';
 import Router from 'next/router';
 
@@ -40,7 +39,7 @@ const Login = ({}: Props) => {
 
                     setTimeout(() => {
                         setError(null);
-                    }, 3000);
+                    }, 5000);
                     return;
                 }
             } catch {}
@@ -72,9 +71,10 @@ const Login = ({}: Props) => {
                             E-mail
                         </label>
                         <input
-                            className={`${
-                                isError && 'border-red-500'
-                            } shadow dark:text-white placeholder:dark:text-white appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 leading-tight  focus:outline-slate-500 focus:shadow-outline dark:bg-gray-600`}
+                            className={`transition-all ease-linear duration-500 shadow dark:text-white placeholder:dark:text-white appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 leading-tight  focus:outline-slate-500 dark:bg-gray-600 ${
+                                isError &&
+                                'border-red-500 focus:outline-none duration-100'
+                            }`}
                             id='email'
                             name='usernames'
                             type='email'
@@ -94,9 +94,10 @@ const Login = ({}: Props) => {
                             Password
                         </label>
                         <input
-                            className={`${
-                                isError && 'border-red-500'
-                            }  shadow dark:text-white placeholder:dark:text-white dark:bg-gray-600 appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 mb-3 leading-tight focus:outline-slate-500 focus:shadow-outline placeholder:flex`}
+                            className={`transition-all ease-linear duration-500 shadow dark:text-white placeholder:dark:text-white dark:bg-gray-600 appearance-none border rounded max-w-2xl py-4 flex items-center px-3 text-gray-700 mb-3 leading-tight focus:outline-slate-500 placeholder:flex ${
+                                isError &&
+                                'border-red-500 focus:outline-none duration-100'
+                            }`}
                             id='password'
                             type='password'
                             name='password'
@@ -113,7 +114,7 @@ const Login = ({}: Props) => {
                     </p>
                     <div className='flex items-center mb-4 w-full justify-between'>
                         <button
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none focus:shadow-outline'
+                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded focus:outline-none'
                             type='submit'
                         >
                             Sign In
@@ -121,7 +122,6 @@ const Login = ({}: Props) => {
                     </div>
                 </div>
             </form>
-            <Footer />
         </>
     );
 };

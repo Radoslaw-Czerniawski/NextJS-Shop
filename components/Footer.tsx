@@ -8,7 +8,7 @@ export const Footer = () => {
                     © 2022 Site by Radosław Czerniawski
                 </span>
             </div>
-            <ul className='flex sm:gap-6 gap-1 text-xs items-center sm:text-sm text-gray-500 dark:text-gray-400 sm:mt-0'>
+            <ul className='flex sm:gap-6 gap-2 text-xs items-center sm:text-sm text-gray-500 dark:text-gray-400 sm:mt-0'>
                 <li>
                     <a
                         href='https://github.com/Radoslaw-Czerniawski'
@@ -33,7 +33,9 @@ export const Footer = () => {
 
                 <li>
                     <Link href='/about' className='hover:underline '>
-                        About
+                        <a href='' className='hover:underline'>
+                            About
+                        </a>
                     </Link>
                 </li>
                 <li>

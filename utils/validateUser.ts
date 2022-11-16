@@ -1,5 +1,5 @@
 import { User } from '../entities/User.entity';
-import { fetchData } from '../utilities/fetchData';
+import { fetchData } from './fetchData';
 import { getServerPath } from './config';
 
 export const validateUser = async (user: User) => {

@@ -7,7 +7,7 @@ const activeClass =
     'relative dark:bg-gray-800 dark:text-white z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20';
 
 const passiveClass =
-    'relative dark:bg-gray-800 dark:text-white hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex';
+    'relative dark:bg-gray-800 dark:text-white hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20 md:inline-flex';
 
 export const Pagination = ({
     href,
@@ -65,7 +65,7 @@ export const Pagination = ({
                                 pageNumber <= 1
                                     ? 'cursor-default'
                                     : 'cursor-pointer'
-                            } relative  inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50`}
+                            } relative  inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700`}
                         >
                             Previous
                         </a>
@@ -80,7 +80,7 @@ export const Pagination = ({
                                 pageNumber >= pages.length
                                     ? 'cursor-default'
                                     : 'cursor-pointer'
-                            } relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50`}
+                            } relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700`}
                         >
                             Next
                         </a>
@@ -120,7 +120,7 @@ export const Pagination = ({
                                         pageNumber <= 1
                                             ? 'cursor-default'
                                             : 'cursor-pointer'
-                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
+                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20`}
                                     onClick={(e) => {
                                         pageNumber <= 1 && e.preventDefault();
                                     }}
@@ -152,7 +152,7 @@ export const Pagination = ({
                                         pageNumber >= resultsAmount / 25
                                             ? 'cursor-default'
                                             : 'cursor-pointer'
-                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20`}
+                                    } relative dark:bg-gray-800 dark:text-white inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20`}
                                     onClick={(e) => {
                                         pageNumber >= resultsAmount / 25 &&
                                             e.preventDefault();
