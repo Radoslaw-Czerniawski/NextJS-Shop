@@ -6,6 +6,7 @@ import {
     useContext,
     useEffect,
 } from 'react';
+import { getValueFromLocalStorage } from '../utils/localStorageHelpers';
 
 const CartContext = createContext<CartState | null>(null);
 const ApiContext = createContext<Api | null>(null);
@@ -17,19 +18,13 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
     });
 
     useEffect(() => {
-        const cartItemsLocalStorage = localStorage.getItem('SHOPPING_CART');
+        const cartItems = getValueFromLocalStorage('SHOPPING_CART');
 
-        if (!cartItemsLocalStorage) {
+        if (!cartItems) {
             return;
         }
 
-        try {
-            const newCart = JSON.parse(cartItemsLocalStorage);
-            setCartItems(newCart);
-        } catch (err) {
-            console.log(err);
-            return;
-        }
+        setCartItems(cartItems);
     }, []);
 
     useEffect(() => {
