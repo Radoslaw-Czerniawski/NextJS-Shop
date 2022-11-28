@@ -17,6 +17,7 @@ const nextConfig = {
             'picsum.photos',
             'fakestoreapi.com',
             'naszsklep-api.vercel.app',
+            'media.graphassets.com',
         ],
     },
 };

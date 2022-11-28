@@ -11,22 +11,26 @@ import SEO from '../next-seo.config';
 import '../styles/globals.css';
 import { Layout } from '../components/Layout';
 import { CartContextProvider } from '../context/CartContext';
+import { ApolloProvider } from '@apollo/client';
+import { apolloClient } from '../graphql/apolloClient';
 
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
     return (
-        <SessionProvider session={pageProps.session}>
-            <QueryClientProvider client={client}>
-                <CartContextProvider>
-                    <Layout>
-                        <DefaultSeo {...SEO} />
-                        {/* we set default Head tags */}
-                        <Component {...pageProps} />
-                    </Layout>
-                </CartContextProvider>
-            </QueryClientProvider>
-        </SessionProvider>
+        <ApolloProvider client={apolloClient}>
+            <SessionProvider session={pageProps.session}>
+                <QueryClientProvider client={client}>
+                    <CartContextProvider>
+                        <Layout>
+                            <DefaultSeo {...SEO} />
+                            {/* we set default Head tags */}
+                            <Component {...pageProps} />
+                        </Layout>
+                    </CartContextProvider>
+                </QueryClientProvider>
+            </SessionProvider>
+        </ApolloProvider>
     );
 }
 

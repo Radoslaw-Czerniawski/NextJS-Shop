@@ -1,11 +1,13 @@
+import { ProductListItem } from './Product';
+
 type CartItem = ProductListItem & { amount: number };
 
-type CartState = {
+export type CartState = {
     items: CartItem[];
     amountTotal: number;
 };
 
 type Api = {
     readonly addItem: (item: ProductListItem) => void;
-    readonly removeItem: (id: number) => void;
+    readonly removeItem: (slug: string) => void;
 };

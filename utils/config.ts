@@ -18,3 +18,5 @@ export const getServerPath = () =>
     process.env.SERVER_PATH ?? 'http://localhost:4000';
 
 export const getApiPath = () => `${getBasePath()}/api`;
+
+export const getDBPath = () => `${process.env.NEXT_PUBLIC_GRAPHQL_CONTENTAPI}`;

@@ -6,3 +6,4 @@
 6next-env.d.ts
 7next.config.ts
 8yarn.lock
+**/generated/*

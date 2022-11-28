@@ -1,6 +1,8 @@
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+
 interface ProductDetails {
-    id: number;
-    title: string;
+    slug: string;
+    name: string;
     description: string;
     longDescription: MDXRemoteSerializeResult<
         Record<string, unknown>,
@@ -13,5 +15,5 @@ interface ProductDetails {
 
 type ProductListItem = Pick<
     ProductDetails,
-    'id' | 'title' | 'thumbnailAlt' | 'thumbnailUrl'
+    'slug' | 'name' | 'thumbnailAlt' | 'thumbnailUrl'
 >;
