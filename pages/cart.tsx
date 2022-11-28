@@ -30,18 +30,18 @@ const Cart = (props: Props) => {
     return (
         <ul className='flex flex-col items-center gap-4 pt-4'>
             {cartState.items.map(
-                ({ id, title, thumbnailAlt, thumbnailUrl, amount }) => (
+                ({ slug, name, thumbnailAlt, thumbnailUrl, amount }) => (
                     <li
-                        key={id}
+                        key={slug}
                         className='flex items-center justify-center gap-4 w-full border-b last:border-b-0'
                     >
                         <div className=' bg-white flex flex-col flex-grow drop-shadow border-1 max-w-lg mb-4 h-54'>
                             <ProductListItem
                                 data={{
-                                    id,
+                                    slug,
                                     thumbnailAlt,
                                     thumbnailUrl,
-                                    title,
+                                    name,
                                 }}
                             />
                         </div>
@@ -50,7 +50,7 @@ const Cart = (props: Props) => {
                         </span>
                         <button
                             className='flex gap-1 items-center bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 border border-gray-400 rounded shadow'
-                            onClick={() => removeItem(id)}
+                            onClick={() => removeItem(slug)}
                         >
                             remove
                             <svg

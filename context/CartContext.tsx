@@ -6,6 +6,7 @@ import {
     useContext,
     useEffect,
 } from 'react';
+import { Api, CartItem, CartState } from '../Types/CartContext';
 import { getValueFromLocalStorage } from '../utils/localStorageHelpers';
 
 const CartContext = createContext<CartState | null>(null);
@@ -42,12 +43,12 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
                         };
 
                     const isAlreadyInCart = items.some(
-                        (el) => el.id === item.id
+                        (el) => el.slug === item.slug
                     );
 
                     if (isAlreadyInCart) {
                         const newItems = items.map((el) =>
-                            el.id === item.id
+                            el.slug === item.slug
                                 ? {
                                       ...el,
                                       amount: el.amount + 1,
@@ -68,11 +69,11 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
                     };
                 });
             },
-            removeItem: (id: number) => {
+            removeItem: (slug: string) => {
                 setCartItems(({ items, amountTotal }) => {
                     let amountToDecrease: number | undefined;
                     const newItems = items.filter((item: CartItem) => {
-                        if (item.id !== id) return true;
+                        if (item.slug !== slug) return true;
                         amountToDecrease = item.amount;
                         return false;
                     });

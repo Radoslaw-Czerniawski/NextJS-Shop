@@ -2,10 +2,14 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import React from 'react';
 import { Pagination } from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
-import { fetchData } from '../../utils/fetchData';
 import { useSession } from 'next-auth/react';
 import Router from 'next/router';
-import { StoreApiResponse } from '../../Types/StoreApi';
+import { apolloClient } from '../../graphql/apolloClient';
+import {
+    GetProductsListDocument,
+    GetProductsListQuery,
+    GetProductsListQueryVariables,
+} from '../../generated/graphql';
 
 const ProductsPage = ({
     data,
@@ -19,24 +23,24 @@ const ProductsPage = ({
     return (
         <>
             <ul className='flex flex-col items-center gap-2 pt-4'>
-                {data.map(({ id, title, image, description, rating }) => (
+                {data?.products.map(({ slug, name, images }) => (
                     <li
-                        key={id}
+                        key={slug}
                         className=' bg-white flex flex-col w-full flex-grow drop-shadow border-1 max-w-2xl mb-2'
                     >
                         <ProductListItem
                             data={{
-                                id,
-                                title,
-                                thumbnailAlt: title,
-                                thumbnailUrl: image,
+                                slug,
+                                name,
+                                thumbnailAlt: name,
+                                thumbnailUrl: images[0].url,
                             }}
                             isButton={true}
                         />
                     </li>
                 ))}
             </ul>
-            <Pagination resultsAmount={4000} href='/products/' />
+            <Pagination resultsAmount={5} href='/products/' />
         </>
     );
 };
@@ -44,7 +48,7 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticPaths = async () => {
-    const pages = Array.from({ length: 50 }, (_, i) => ({
+    const pages = Array.from({ length: 1 }, (_, i) => ({
         page: i + 1,
     }));
 
@@ -66,11 +70,18 @@ export const getStaticProps = async ({
             ? parseInt(params.page) * 25 - 25
             : 25;
 
-    const data = await fetchData<StoreApiResponse[]>(
-        `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offset}`
-    );
+    const { data, error } = await apolloClient.query<
+        GetProductsListQuery,
+        GetProductsListQueryVariables
+    >({
+        variables: {
+            first: 25,
+            offset: offset,
+        },
+        query: GetProductsListDocument,
+    });
 
-    if (data instanceof Error) throw data;
+    if (!data.products || error) return { props: {}, notFound: true };
 
     return {
         props: {

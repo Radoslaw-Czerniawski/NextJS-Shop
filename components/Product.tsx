@@ -13,14 +13,14 @@ interface ProductListItemProps {
 }
 
 export const ProductListItem = ({
-    data: { id, title, thumbnailUrl, thumbnailAlt },
+    data: { slug, name, thumbnailUrl, thumbnailAlt },
     isButton,
 }: ProductListItemProps) => (
     <>
         <h2 className='bg-slate-200 rounded-b-lg p-4 text-2xl font-bold shadow z-10 text-center'>
-            {title}
+            {name}
         </h2>
-        <Link href={`/products/item/${id}`}>
+        <Link href={`/products/item/${slug}`}>
             <a className='bg-wh pb-4 pt-4'>
                 <Image
                     layout='responsive'
@@ -36,8 +36,8 @@ export const ProductListItem = ({
             {isButton && (
                 <AddToCartButton
                     item={{
-                        id,
-                        title,
+                        slug,
+                        name,
                         thumbnailAlt,
                         thumbnailUrl,
                     }}
@@ -54,8 +54,8 @@ interface ProductDetailsProps {
 
 export const ProductDetails = ({
     data: {
-        id,
-        title,
+        slug,
+        name,
         thumbnailUrl,
         thumbnailAlt,
         description,
@@ -66,12 +66,12 @@ export const ProductDetails = ({
     return (
         <>
             <NextSeo
-                title={title}
+                title={name}
                 description={description}
-                canonical={`${getBasePath()}/products/item/${id}/`}
+                canonical={`${getBasePath()}/products/item/${slug}/`}
                 openGraph={{
-                    url: `https://naszsklep-api.vercel.app/api/products/${id}`,
-                    title,
+                    url: `https://naszsklep-api.vercel.app/api/products/${slug}`,
+                    title: name,
                     description,
                     images: [
                         {
@@ -84,9 +84,7 @@ export const ProductDetails = ({
                 }}
             />
             <div className='flex text-center flex-col items-center h-full max-w-2xl mx-auto'>
-                <h1 className='text-3xl mt-10 font-bold text-center'>
-                    {title}
-                </h1>
+                <h1 className='text-3xl mt-10 font-bold text-center'>{name}</h1>
                 <div className='relative bg-white mt-10 h-auto w-full'>
                     <Image
                         layout='responsive'
@@ -101,12 +99,12 @@ export const ProductDetails = ({
                     <CustomReactMarkdown>{longDescription}</CustomReactMarkdown>
                 </article>
                 <span className='text-cyan-700 pb-2 text-3xl flex-grow font-extrabold'>
-                    {rating}
+                    {rating}$
                 </span>
             </div>
             <div className='fixed gap-10 bg-white bottom-0 h-[65px] w-full mx-auto select-none flex justify-center border items-center text-2xl'>
                 <AddToCartButton
-                    item={{ id, title, thumbnailAlt, thumbnailUrl }}
+                    item={{ slug, name, thumbnailAlt, thumbnailUrl }}
                 />
                 <button
                     onClick={() => Router.back()}

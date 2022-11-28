@@ -45,8 +45,8 @@ const ProductsCRSPage = () => {
                     >
                         <ProductListItem
                             data={{
-                                id,
-                                title,
+                                slug: `${id}`,
+                                name: title,
                                 thumbnailAlt: title,
                                 thumbnailUrl: image,
                             }}
